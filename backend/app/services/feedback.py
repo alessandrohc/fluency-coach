@@ -166,3 +166,62 @@ class FeedbackService:
             "follow_up_questions": parsed.get("follow_up_questions", []),
         }
 
+    def evaluate_retention(self, question: str, written_answer: str, transcript: str) -> dict[str, Any]:
+        response = self.client.chat.completions.create(
+            model=self.model,
+            temperature=0.2,
+            messages=[
+                {
+                    "role": "system",
+                    "content": (
+                        "Você é o avaliador AMR de um dev senior brasileiro voltando a falar "
+                        "inglês para screenings internacionais. O gargalo é retrieval ativo e "
+                        "fluência, não conhecimento e não gramática.\n\n"
+                        "Compare a fala de retenção com a resposta escrita que ele treinou. "
+                        "Não corrija gramática. Não seja professor de vírgula. Foque em: "
+                        "substância recuperada, vocabulário/estruturas que voltaram, pontos "
+                        "que ele simplificou ou evitou, e hesitação visível no transcript.\n\n"
+                        "Responda em pt-BR. Retorne somente JSON válido."
+                    ),
+                },
+                {
+                    "role": "user",
+                    "content": json.dumps(
+                        {
+                            "pergunta": question,
+                            "resposta_escrita_de_referencia": written_answer,
+                            "transcricao_da_fala_de_retencao": transcript,
+                            "required_json_shape": {
+                                "substancia": {
+                                    "nota": "integer 0-5",
+                                    "comentario": "manteve os pontos-chave sem a muleta? o que colapsou?",
+                                },
+                                "vocabulario": {
+                                    "alcancado": ["palavras/estruturas boas recuperadas na fala"],
+                                    "evitado_ou_simplificado": ["onde fugiu ou simplificou vs a v1"],
+                                    "comentario": "comentário curto em pt-BR",
+                                },
+                                "hesitacao": {
+                                    "densidade": "baixa|média|alta",
+                                    "exemplos": ["fillers, reinícios ou repetições no transcript"],
+                                    "comentario": "comentário curto em pt-BR",
+                                },
+                                "foco_proxima_rep": "uma coisa concreta e acionável para a próxima tentativa",
+                            },
+                        },
+                        ensure_ascii=False,
+                    ),
+                },
+            ],
+            response_format={"type": "json_object"},
+        )
+
+        content = response.choices[0].message.content or "{}"
+        parsed = json.loads(content)
+
+        return {
+            "substancia": parsed.get("substancia", {}),
+            "vocabulario": parsed.get("vocabulario", {}),
+            "hesitacao": parsed.get("hesitacao", {}),
+            "foco_proxima_rep": parsed.get("foco_proxima_rep", ""),
+        }

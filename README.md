@@ -1,20 +1,21 @@
 # Fluency Coach
 
-A minimal local-first AI English speaking coach for recovering spoken fluency for technical interviews.
+A local-first AMR English speaking coach for recovering spoken fluency for technical interviews.
 
-It runs locally with Docker Compose, records audio in the browser, sends it to a FastAPI backend, transcribes it with OpenAI Whisper, asks GPT for interview-focused feedback and follow-up questions, and saves each practice session as a JSON file under `data/sessions`.
+It runs locally with Docker Compose, stores AMR progress in SQLite, records audio in the browser, sends it to a FastAPI backend, transcribes it with OpenAI Whisper, and asks GPT for retention-focused feedback.
 
 ## Features
 
-- Browser audio recording and upload
+- AMR flow: written activation, speaking reps, retention, and spaced review
+- Persistent SQLite database for per-question progress
+- Browser audio recording and upload during retention
 - OpenAI Whisper transcription
-- GPT fluency feedback
+- GPT retention evaluation comparing spoken recall against the written answer
 - AI follow-up interview questions
 - Multiple rounds per session
 - Vocabulary recovery suggestions
-- Local JSON persistence
+- Legacy JSON session endpoints are still available
 - No authentication
-- No database
 
 ## Requirements
 
@@ -62,13 +63,19 @@ http://localhost:8001/docs
 
 ## Local Data
 
-Practice sessions are saved as JSON files in:
+AMR progress is saved in:
+
+```text
+data/amr.sqlite3
+```
+
+Legacy practice sessions are still saved as JSON files in:
 
 ```text
 data/sessions/
 ```
 
-Each file contains the original question, transcript, feedback, vocabulary suggestions, follow-up questions, and timestamps for each round.
+The SQLite database contains question state, written answers, speaking reps, retention transcripts/evaluations, and review dates.
 
 ## Architecture
 
@@ -97,6 +104,7 @@ Each file contains the original question, transcript, feedback, vocabulary sugge
 │   ├── package.json
 │   └── tsconfig.json
 ├── data
+│   ├── amr.sqlite3
 │   └── sessions
 ├── docker-compose.yml
 └── .env.example
