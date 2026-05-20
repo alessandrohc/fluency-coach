@@ -1,0 +1,322 @@
+[
+  {
+    "id": "screening-english-communication",
+    "group": "Screenings",
+    "title": "English Proficiency & International Communication",
+    "questions": [
+      "Can you share an example of when you had to communicate complex technical concepts in English?",
+      "How do you ensure effective communication in a remote, multicultural environment?",
+      "What strategies do you use to clarify requirements when working with non-technical stakeholders in English?",
+      "Can you give an example of when miscommunication occurred in a remote setting and how you resolved it?"
+    ]
+  },
+  {
+    "id": "screening-career-background",
+    "group": "Screenings",
+    "title": "Experience & Professional Background",
+    "questions": [
+      "Can you give us a high-level overview of your career journey and the key milestones?",
+      "What's a recent project you worked on that you're particularly proud of, and what was your role?",
+      "Can you describe a time when you had to work outside your technical comfort zone?",
+      "What technologies have you been working with most recently, and why?",
+      "How do you prioritize between technical excellence and delivering business value?"
+    ]
+  },
+  {
+    "id": "screening-modern-technical",
+    "group": "Screenings",
+    "title": "Modern Technical Questions",
+    "questions": [
+      "Which emerging technologies do you believe will have the biggest impact on software development in the next three years?",
+      "How do you incorporate AI tools, such as GitHub Copilot, ChatGPT, or AI-based testing, into your workflow?",
+      "Tell me about a time when you had to refactor a legacy system. How did you approach it?",
+      "How do you balance performance optimization with maintaining clean, scalable code?",
+      "What strategies do you use to stay up to date with evolving best practices in your tech stack?"
+    ]
+  },
+  {
+    "id": "screening-agile-collaboration",
+    "group": "Screenings",
+    "title": "Agile Methodologies & Collaboration",
+    "questions": [
+      "How do you handle rapidly changing requirements in an Agile environment?",
+      "Tell me about a sprint where things didn't go as planned. What happened, and how did your team handle it?",
+      "How do you ensure that technical debt doesn't accumulate in an Agile workflow?",
+      "What's your approach to breaking down complex technical tasks in sprint planning?",
+      "What role do you usually take during retrospectives, and how do you contribute to continuous improvement?"
+    ]
+  },
+  {
+    "id": "screening-culture-teamwork",
+    "group": "Screenings",
+    "title": "Culture & Teamwork",
+    "questions": [
+      "How do you approach integrating into a new team's culture, especially in international settings?",
+      "Can you share a time when you had to navigate cultural differences within a team?",
+      "How do you foster a sense of collaboration in remote or hybrid work environments?",
+      "What's your approach to handling disagreements in technical discussions?",
+      "Can you give an example of when you had to advocate for a technical decision and convince your team?"
+    ]
+  },
+  {
+    "id": "screening-leadership-initiative",
+    "group": "Screenings",
+    "title": "Leadership, Initiative & Mentoring",
+    "questions": [
+      "Tell me about a time when you took ownership of a project beyond your initial responsibilities.",
+      "How do you mentor junior developers or help upskill team members?",
+      "Can you describe a situation where you had to influence a decision without being in a leadership position?",
+      "What's your philosophy on knowledge sharing within teams?",
+      "How do you handle situations where you disagree with a technical decision made by leadership?"
+    ]
+  },
+  {
+    "id": "screening-adaptability-learning",
+    "group": "Screenings",
+    "title": "Adaptability & Continuous Learning",
+    "questions": [
+      "How do you approach learning a new framework or technology under tight deadlines?",
+      "Can you give an example of when you had to pivot your approach due to unforeseen challenges?",
+      "How do you maintain productivity and motivation in uncertain or high-pressure environments?",
+      "Tell me about a time when you had to quickly adapt to a completely different tech stack.",
+      "How do you assess whether a new technology is worth integrating into your workflow?"
+    ]
+  },
+  {
+    "id": "screening-customer-problem-solving",
+    "group": "Screenings",
+    "title": "Customer Focus & Problem Solving",
+    "questions": [
+      "How do you ensure that the software you build aligns with business objectives?",
+      "Can you describe a time when you had to advocate for the user experience in a technical decision?",
+      "Tell me about a time when you had to push back on a client or stakeholder request due to technical limitations.",
+      "How do you balance meeting business requirements while maintaining system scalability?",
+      "What's your approach to debugging and troubleshooting production issues efficiently?"
+    ]
+  },
+  {
+    "id": "screening-remote-time",
+    "group": "Screenings",
+    "title": "Remote Work & Time Management",
+    "questions": [
+      "How do you structure your workday to stay productive while working remotely?",
+      "What strategies do you use to manage async communication effectively?",
+      "Can you give an example of how you handled working across multiple time zones?",
+      "How do you set boundaries to maintain a healthy work-life balance in a remote setting?",
+      "How do you ensure visibility in a fully remote team without over-communicating?"
+    ]
+  },
+  {
+    "id": "screening-career-future",
+    "group": "Screenings",
+    "title": "Career Future & Professional Development",
+    "questions": [
+      "What are your long-term career aspirations, and how does this role align with them?",
+      "What skills are you currently focused on improving?",
+      "Where do you see the future of software development heading, and how do you plan to stay relevant?",
+      "What's one area of technology or business that you're curious to learn more about?",
+      "What kind of projects or challenges excite you the most?"
+    ]
+  },
+  {
+    "id": "skills-adaptability-resilience",
+    "group": "Core Skills",
+    "title": "Adaptability & Resilience",
+    "questions": [
+      "Tell me about a time when you had to quickly adapt to a major change at work. How did you handle it?",
+      "How do you respond when a project you're working on suddenly shifts priorities?",
+      "Can you describe a situation where you had to work with an unfamiliar technology under a tight deadline?",
+      "What strategies do you use to remain productive and positive in the face of setbacks?",
+      "How do you handle ambiguity in projects where requirements are not well defined?"
+    ]
+  },
+  {
+    "id": "skills-clear-communication",
+    "group": "Core Skills",
+    "title": "Clear & Influential Communication",
+    "questions": [
+      "How do you ensure your ideas are understood when communicating with both technical and non-technical stakeholders?",
+      "Can you share an example of when you had to simplify a complex concept for someone less technical?",
+      "How do you handle misunderstandings in remote communication?",
+      "Tell me about a time when you had to give constructive feedback to a colleague or receive it yourself. How was the experience?",
+      "What's your approach to writing clear documentation or technical specifications?"
+    ]
+  },
+  {
+    "id": "skills-growth-mindset",
+    "group": "Core Skills",
+    "title": "Growth Mindset",
+    "questions": [
+      "Tell me about a time when you received constructive criticism. How did you apply it to grow?",
+      "What's a skill or technology you struggled to learn but eventually mastered?",
+      "How do you approach continuous learning and self-improvement in your career?",
+      "Can you describe a time when you failed at something and what you learned from it?",
+      "What do you do when you realize your approach to solving a problem is not working?"
+    ]
+  },
+  {
+    "id": "skills-global-teamwork",
+    "group": "Core Skills",
+    "title": "Global Collaboration & Teamwork",
+    "questions": [
+      "Can you share an experience where you had to collaborate with a team in different time zones?",
+      "How do you navigate cultural differences when working with international colleagues?",
+      "Tell me about a time when you had to resolve a conflict within a remote or diverse team.",
+      "How do you handle situations where team members have different opinions on how to solve a technical problem?",
+      "What strategies do you use to foster a strong team dynamic in a remote environment?"
+    ]
+  },
+  {
+    "id": "skills-critical-thinking",
+    "group": "Core Skills",
+    "title": "Critical Thinking & Problem Solving",
+    "questions": [
+      "Tell me about the most complex technical challenge you've faced. How did you approach solving it?",
+      "How do you prioritize solving problems when multiple issues arise at the same time?",
+      "Can you give an example of when you had to troubleshoot a system failure or major bug?",
+      "What's your process for evaluating trade-offs when choosing between different technical solutions?",
+      "How do you handle a situation where your proposed solution is challenged by another team member?"
+    ]
+  },
+  {
+    "id": "skills-self-leadership",
+    "group": "Core Skills",
+    "title": "Leadership & Autonomy",
+    "questions": [
+      "Tell me about a time when you had to take initiative without being asked. What was the impact?",
+      "How do you manage your tasks and ensure productivity when working independently?",
+      "Can you describe a time when you influenced a team decision, even though you weren't in a leadership role?",
+      "How do you set personal and professional goals for yourself?",
+      "What's your strategy for mentoring junior developers or helping others grow?"
+    ]
+  },
+  {
+    "id": "skills-digital-ethics",
+    "group": "Core Skills",
+    "title": "Digital Ethics & Responsibility",
+    "questions": [
+      "How do you ensure that your code and solutions align with ethical best practices?",
+      "What's your approach to handling data privacy and security in your work?",
+      "Can you give an example of when you had to make an ethical decision regarding a project or data handling?",
+      "How do you stay informed about the latest regulations and best practices regarding cybersecurity and data ethics?",
+      "What are your thoughts on the ethical use of AI in software development?"
+    ]
+  },
+  {
+    "id": "leadership-team-management",
+    "group": "Leadership Interviews",
+    "title": "Leadership & Team Management",
+    "questions": [
+      "How do you define your leadership style, and how do you adapt it based on team needs?",
+      "Can you describe a time when you had to resolve a conflict within your team?",
+      "How do you mentor and develop junior developers while balancing project deadlines?",
+      "How do you handle performance issues within the team?",
+      "What strategies do you use to foster collaboration between engineering, product, and design teams?",
+      "How do you ensure psychological safety within your team?"
+    ]
+  },
+  {
+    "id": "leadership-technical-decision-making",
+    "group": "Leadership Interviews",
+    "title": "Technical Expertise & Decision-Making",
+    "questions": [
+      "Can you walk us through a complex technical decision you had to make and how you approached it?",
+      "How do you evaluate and introduce new technologies into an existing system?",
+      "What is your approach to handling technical debt in a fast-paced environment?",
+      "Can you describe a time when you had to refactor or scale a system? What were the main challenges?",
+      "How do you balance hands-on coding with leadership responsibilities?",
+      "What are your strategies for ensuring high-quality code and best engineering practices?"
+    ]
+  },
+  {
+    "id": "leadership-agile-delivery",
+    "group": "Leadership Interviews",
+    "title": "Agile & Project Delivery",
+    "questions": [
+      "How do you handle situations where business priorities shift rapidly?",
+      "What is your approach to sprint planning and backlog management?",
+      "Can you describe a time when you had to manage multiple competing priorities?",
+      "How do you ensure your team delivers on time while maintaining high code quality?",
+      "How do you handle a situation where a stakeholder requests unrealistic deadlines?",
+      "How do you measure the success of a project beyond just delivering the code?"
+    ]
+  },
+  {
+    "id": "leadership-adaptability-problem-solving",
+    "group": "Leadership Interviews",
+    "title": "Adaptability & Problem-Solving",
+    "questions": [
+      "Tell me about a time when you had to quickly learn a new technology to solve a problem.",
+      "How do you approach troubleshooting critical production issues?",
+      "What do you do when you disagree with a key technical decision made by upper management?",
+      "Can you describe a time when you had to make a trade-off between speed and scalability?",
+      "What's your strategy for handling uncertainty in technical decisions?",
+      "How do you balance long-term architecture goals with short-term delivery needs?"
+    ]
+  },
+  {
+    "id": "leadership-remote-distributed",
+    "group": "Leadership Interviews",
+    "title": "Remote Work & Distributed Teams",
+    "questions": [
+      "What strategies do you use to lead a fully remote or distributed team effectively?",
+      "How do you maintain strong communication and alignment in an asynchronous work environment?",
+      "Can you describe a time when you had to manage a team across different time zones?",
+      "How do you ensure remote team members feel included and engaged?",
+      "What tools and processes do you use to keep track of your team's progress?",
+      "How do you handle situations where a remote team member is underperforming?"
+    ]
+  },
+  {
+    "id": "leadership-culture-soft-skills",
+    "group": "Leadership Interviews",
+    "title": "Culture & Soft Skills",
+    "questions": [
+      "What do you believe are the key qualities of a strong engineering culture?",
+      "How do you promote knowledge sharing and continuous learning within your team?",
+      "How do you create a team environment where engineers feel motivated and empowered?",
+      "Can you describe a time when you had to advocate for your team's needs in front of leadership?",
+      "What's your approach to handling burnout in engineering teams?",
+      "How do you align your team's work with the company's overall business goals?"
+    ]
+  },
+  {
+    "id": "leadership-security-ethics",
+    "group": "Leadership Interviews",
+    "title": "Security, Compliance & Ethics",
+    "questions": [
+      "What's your approach to ensuring security best practices in development?",
+      "How do you handle situations where business requirements conflict with security best practices?",
+      "Can you describe a time when you had to address a major security vulnerability in a system?",
+      "How do you educate your team on secure coding practices?",
+      "What ethical considerations do you take into account when building software?",
+      "How do you ensure that AI-powered solutions in your projects are developed ethically?"
+    ]
+  },
+  {
+    "id": "leadership-business-stakeholders",
+    "group": "Leadership Interviews",
+    "title": "Business Impact & Stakeholder Management",
+    "questions": [
+      "How do you ensure that technical decisions align with business objectives?",
+      "Can you describe a time when you had to explain a technical limitation to non-technical stakeholders?",
+      "How do you manage expectations with stakeholders when a project faces delays?",
+      "What's your approach to balancing innovation with business constraints?",
+      "Can you give an example of when you had to push back on a feature request due to technical concerns?",
+      "How do you handle situations where product and engineering teams have conflicting priorities?"
+    ]
+  },
+  {
+    "id": "leadership-career-vision",
+    "group": "Leadership Interviews",
+    "title": "Career Growth & Future Vision",
+    "questions": [
+      "Where do you see yourself in the next 5 years as a Tech Lead?",
+      "What are the next skills or areas you are actively learning to improve as a leader?",
+      "How do you help your team members define and reach their career goals?",
+      "What trends do you think will shape the role of a Tech Lead in the next few years?",
+      "How do you balance staying hands-on technically while growing in leadership?",
+      "If you had unlimited resources, what changes would you make to improve engineering practices?"
+    ]
+  }
+]

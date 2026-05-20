@@ -1,0 +1,8 @@
+.env
+data/sessions/*.json
+backend/__pycache__/
+backend/app/__pycache__/
+frontend/.next/
+frontend/node_modules/
+*.pyc
+
