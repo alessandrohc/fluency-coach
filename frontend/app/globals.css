@@ -328,6 +328,13 @@ ol {
   justify-content: space-between;
 }
 
+.workspaceFooter {
+  display: flex;
+  justify-content: flex-end;
+  border-top: 1px solid var(--line);
+  padding-top: 14px;
+}
+
 .writtenCard,
 .recorderBox,
 .evalCard {

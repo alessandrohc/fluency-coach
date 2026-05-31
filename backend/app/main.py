@@ -5,7 +5,7 @@ from datetime import date
 from pathlib import Path
 from typing import Any
 
-from fastapi import FastAPI, File, Form, HTTPException, UploadFile
+from fastapi import FastAPI, File, Form, HTTPException, Response, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from openai import OpenAI
 from pydantic import BaseModel, Field
@@ -120,10 +120,11 @@ async def retention_audio(question_id: str, audio: UploadFile = File(...)) -> di
     if client is None:
         raise HTTPException(status_code=500, detail="OPENAI_API_KEY is not configured")
 
+    audio_bytes = await audio.read()
     suffix = Path(audio.filename or "audio.webm").suffix or ".webm"
     with tempfile.NamedTemporaryFile(delete=False, suffix=suffix) as temp_file:
         temp_path = Path(temp_file.name)
-        temp_file.write(await audio.read())
+        temp_file.write(audio_bytes)
 
     try:
         transcript = TranscriptionService(client, OPENAI_TRANSCRIPTION_MODEL).transcribe(temp_path)
@@ -137,10 +138,31 @@ async def retention_audio(question_id: str, audio: UploadFile = File(...)) -> di
         )
         return {
             "transcript": transcript,
-            "progress": amr_store.add_retention_attempt(question_id, transcript, evaluation),
+            "progress": amr_store.add_retention_attempt(
+                question_id,
+                transcript,
+                evaluation,
+                audio=audio_bytes,
+                audio_mime=audio.content_type or "audio/webm",
+            ),
         }
     finally:
         temp_path.unlink(missing_ok=True)
+
+
+@app.get("/amr/questions/{question_id}/retention/{attempt_id}/audio")
+def retention_audio_file(question_id: str, attempt_id: int) -> Response:
+    result = amr_store.get_retention_audio(question_id, attempt_id)
+    if result is None:
+        raise HTTPException(status_code=404, detail="No audio for this retention attempt")
+    audio_bytes, mime = result
+    return Response(content=audio_bytes, media_type=mime)
+
+
+@app.post("/amr/questions/{question_id}/reset")
+def reset_question(question_id: str) -> dict[str, Any]:
+    _get_question_or_404(question_id)
+    return {"progress": amr_store.reset_question(question_id)}
 
 
 @app.post("/amr/questions/{question_id}/retained")

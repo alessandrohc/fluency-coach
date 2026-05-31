@@ -6,28 +6,28 @@ import type { AMRProgress, AMRQuestion, AMRStateName, AMRStateResponse, Retentio
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8001";
 
 const PHASES: Record<AMRStateName, { label: string; short: string }> = {
-  NEW: { label: "Ativação pendente", short: "NOVA" },
-  MUSCLE: { label: "Musculação", short: "MUSC" },
-  RETENTION: { label: "Retenção", short: "RET" },
-  RETAINED: { label: "Retida", short: "OK" },
+  NEW: { label: "Pending activation", short: "NEW" },
+  MUSCLE: { label: "Muscle reps", short: "REPS" },
+  RETENTION: { label: "Retention", short: "RET" },
+  RETAINED: { label: "Retained", short: "OK" },
 };
 
 const STEP_COPY: Record<string, { title: string; body: string }> = {
   AQUECIMENTO: {
-    title: "Aquecimento",
-    body: "Uma resposta retida voltou para revisão. Responda de cabeça e confirme se ainda sai fluido.",
+    title: "Warm-up",
+    body: "A retained answer is back for review. Answer from memory and confirm it still comes out fluently.",
   },
   ATIVACAO: {
-    title: "Ativação escrita",
-    body: "Pergunta nova. Escreva a resposta só com o que já está na sua cabeça, sem IA e sem consulta.",
+    title: "Written activation",
+    body: "New question. Write the answer using only what's already in your head — no AI, no lookups.",
   },
   MUSCULACAO: {
-    title: "Musculação",
-    body: "Leia sua resposta em voz alta. O objetivo é boca, ritmo e recuperação automática.",
+    title: "Muscle reps",
+    body: "Read your answer out loud. The goal is mouth, rhythm, and automatic recall.",
   },
   RETENCAO: {
-    title: "Retenção",
-    body: "Responda sem olhar a v1. Grave ou cole a transcrição para comparar fala real contra resposta escrita.",
+    title: "Retention",
+    body: "Answer without looking at v1. Record or paste a transcript to compare your real speech against the written answer.",
   },
 };
 
@@ -114,8 +114,8 @@ export default function Home() {
       <main className="shell">
         <section className="empty">
           <h1>AMR Trainer</h1>
-          <p>{error || "Carregando estado AMR do backend..."}</p>
-          {error && <button onClick={loadState}>Tentar de novo</button>}
+          <p>{error || "Loading AMR state from the backend..."}</p>
+          {error && <button onClick={loadState}>Try again</button>}
         </section>
       </main>
     );
@@ -126,7 +126,7 @@ export default function Home() {
       <header className="header">
         <div>
           <p className="eyebrow">AMR Trainer</p>
-          <h1>Ativação, Musculação e Retenção</h1>
+          <h1>Activation, Muscle Reps & Retention</h1>
         </div>
         <div className="headerActions">
           <Segmented
@@ -134,25 +134,25 @@ export default function Home() {
             options={[
               ["ic", "IC"],
               ["leadership", "Lead"],
-              ["all", "Tudo"],
+              ["all", "All"],
             ]}
             onChange={(value) => setTrack(value as "ic" | "leadership" | "all")}
           />
           <button className="secondary" onClick={loadState}>
-            Recarregar
+            Reload
           </button>
         </div>
       </header>
 
       <nav className="topTabs" aria-label="AMR views">
         <button className={view === "today" ? "tab selected" : "tab"} onClick={() => setView("today")}>
-          Sessão
+          Session
         </button>
         <button className={view === "bank" ? "tab selected" : "tab"} onClick={() => setView("bank")}>
-          Banco
+          Bank
         </button>
         <button className={view === "progress" ? "tab selected" : "tab"} onClick={() => setView("progress")}>
-          Progresso
+          Progress
         </button>
       </nav>
 
@@ -164,15 +164,15 @@ export default function Home() {
         <section className="practice">
           <div className="panel">
             <div className="fieldHeader">
-              <span>Banco de perguntas</span>
+              <span>Question bank</span>
               <span>
-                {filteredQuestions.length} de {questions.length}
+                {filteredQuestions.length} of {questions.length}
               </span>
             </div>
             <div className="filters">
-              <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Filtrar pergunta..." />
+              <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Filter questions..." />
               <select value={category} onChange={(event) => setCategory(event.target.value)}>
-                <option value="all">Todas categorias</option>
+                <option value="all">All categories</option>
                 {categories.map((item) => (
                   <option key={item} value={item}>
                     {item}
@@ -180,7 +180,7 @@ export default function Home() {
                 ))}
               </select>
               <select value={stateFilter} onChange={(event) => setStateFilter(event.target.value as AMRStateName | "all")}>
-                <option value="all">Todos estados</option>
+                <option value="all">All states</option>
                 {Object.entries(PHASES).map(([key, phase]) => (
                   <option key={key} value={key}>
                     {phase.label}
@@ -218,8 +218,8 @@ export default function Home() {
               />
             ) : (
               <div className="empty inline">
-                <h2>Escolha uma pergunta</h2>
-                <p>O painel separa resposta escrita, leitura em voz alta e retenção real.</p>
+                <h2>Pick a question</h2>
+                <p>The panel separates the written answer, reading out loud, and real retention.</p>
               </div>
             )}
           </div>
@@ -273,14 +273,14 @@ function Today({
   return (
     <section className="stack">
       <div className="sectionHeader">
-        <h2>Sessão de hoje</h2>
-        <span>{new Date().toLocaleDateString("pt-BR")}</span>
+        <h2>Today's session</h2>
+        <span>{new Date().toLocaleDateString("en-US")}</span>
       </div>
 
       {items.length === 0 ? (
         <div className="empty">
-          <h2>Nada urgente nesse track</h2>
-          <p>Abra o banco e comece uma pergunta nova, ou troque o track no topo.</p>
+          <h2>Nothing urgent in this track</h2>
+          <p>Open the bank and start a new question, or switch the track at the top.</p>
         </div>
       ) : (
         <ol className="sessionList">
@@ -341,6 +341,22 @@ function QuestionWorkspace({
       {progress.state === "MUSCLE" && <Muscle question={question} progress={progress} mutate={mutate} busy={busy} />}
       {progress.state === "RETENTION" && <Retention question={question} progress={progress} mutate={mutate} busy={busy} />}
       {progress.state === "RETAINED" && <Retained question={question} progress={progress} mutate={mutate} />}
+
+      {progress.state !== "NEW" && (
+        <div className="workspaceFooter">
+          <button
+            className="secondary"
+            disabled={Boolean(busy)}
+            onClick={() => {
+              if (window.confirm("Reset this question to its original state? This clears the written answer, reps, recordings, and evaluations.")) {
+                void mutate(`/amr/questions/${encodeURIComponent(question.id)}/reset`);
+              }
+            }}
+          >
+            Reset to original state
+          </button>
+        </div>
+      )}
     </div>
   );
 }
@@ -357,16 +373,16 @@ function Activation({
   const [answer, setAnswer] = useState("");
   return (
     <section className="phase">
-      <h3>Ativação escrita</h3>
-      <p className="muted">Sem IA nesta fase. Escreva a resposta com o vocabulário que você consegue recuperar agora.</p>
+      <h3>Written activation</h3>
+      <p className="muted">No AI in this phase. Write your answer with the vocabulary you can recall right now.</p>
       <textarea value={answer} onChange={(event) => setAnswer(event.target.value)} placeholder="Type your answer in English..." />
       <div className="phaseActions">
-        <span className="muted">{wordCount(answer)} palavras</span>
+        <span className="muted">{wordCount(answer)} words</span>
         <button
           disabled={answer.trim().length < 10 || Boolean(busy)}
           onClick={() => mutate(`/amr/questions/${encodeURIComponent(question.id)}/activation`, { written_answer: answer.trim() })}
         >
-          Salvar v1 escrita
+          Save written v1
         </button>
       </div>
     </section>
@@ -388,30 +404,30 @@ function Muscle({
   const canAdvance = progress.reps.length >= 3 && last?.r === "fluiu";
   return (
     <section className="phase">
-      <h3>Musculação</h3>
+      <h3>Muscle reps</h3>
       <div className="writtenCard">
-        <span>Sua v1 escrita</span>
+        <span>Your written v1</span>
         <p>{progress.written_answer}</p>
       </div>
-      <p className="muted">Leia em voz alta. Marque cada tentativa para o banco saber quando sugerir a próxima fase.</p>
+      <p className="muted">Read it out loud. Log each attempt so the app knows when to suggest the next phase.</p>
       <div className="actions">
         <button className="warning" disabled={Boolean(busy)} onClick={() => mutate(`/amr/questions/${encodeURIComponent(question.id)}/reps`, { result: "travei" })}>
-          +1 rep travei
+          +1 rep · got stuck
         </button>
         <button disabled={Boolean(busy)} onClick={() => mutate(`/amr/questions/${encodeURIComponent(question.id)}/reps`, { result: "fluiu" })}>
-          +1 rep fluiu
+          +1 rep · flowed
         </button>
       </div>
       <div className="repLine">
-        {progress.reps.length === 0 ? <span className="muted">Nenhuma rep ainda</span> : null}
+        {progress.reps.length === 0 ? <span className="muted">No reps yet</span> : null}
         {progress.reps.map((rep) => (
           <span key={rep.id} className={rep.r === "fluiu" ? "pill good" : "pill warn"}>
-            {fmt(rep.d)} · {rep.r}
+            {fmt(rep.d)} · {repLabel(rep.r)}
           </span>
         ))}
       </div>
       <button disabled={!canAdvance || Boolean(busy)} onClick={() => mutate(`/amr/questions/${encodeURIComponent(question.id)}/advance-retention`)}>
-        Avançar para retenção
+        Advance to retention
       </button>
     </section>
   );
@@ -470,14 +486,14 @@ function Retention({
 
   return (
     <section className="phase">
-      <h3>Retenção</h3>
-      <p className="muted">A v1 fica escondida aqui de propósito. Responda de cabeça, grave ou cole uma transcrição, e o avaliador compara fala contra memória.</p>
+      <h3>Retention</h3>
+      <p className="muted">The v1 is hidden here on purpose. Answer from memory, record or paste a transcript, and the evaluator compares your speech against memory. Each recording gets its own evaluation.</p>
       <div className="recorderBox">
-        <strong>{isRecording ? "Gravando" : audioBlob ? "Áudio pronto" : "Gravador"}</strong>
+        <strong>{isRecording ? "Recording" : audioBlob ? "Audio ready" : "Recorder"}</strong>
         <div className="actions">
           {!isRecording ? (
             <button disabled={Boolean(busy)} onClick={startRecording}>
-              Gravar
+              Record
             </button>
           ) : (
             <button
@@ -487,32 +503,32 @@ function Retention({
                 setIsRecording(false);
               }}
             >
-              Parar
+              Stop
             </button>
           )}
           <button disabled={!audioBlob || Boolean(busy) || isRecording} onClick={submitAudio}>
-            {busy ? "Avaliando..." : "Enviar áudio"}
+            {busy ? "Evaluating..." : "Send audio"}
           </button>
         </div>
         {audioUrl && <audio controls src={audioUrl} />}
       </div>
-      <textarea value={transcript} onChange={(event) => setTranscript(event.target.value)} placeholder="Ou cole aqui a transcrição da sua fala..." />
+      <textarea value={transcript} onChange={(event) => setTranscript(event.target.value)} placeholder="Or paste the transcript of your answer here..." />
       <button
         disabled={transcript.trim().length < 15 || Boolean(busy)}
         onClick={() => mutate(`/amr/questions/${encodeURIComponent(question.id)}/retention-text`, { transcript: transcript.trim() }).then(() => setTranscript(""))}
       >
-        Avaliar transcrição
+        Evaluate transcript
       </button>
 
       {progress.retention.slice().reverse().map((attempt) => (
-        <EvalCard key={attempt.id} attempt={attempt} />
+        <EvalCard key={attempt.id} attempt={attempt} questionId={question.id} />
       ))}
 
       <button
         disabled={progress.retention.length === 0 || Boolean(busy)}
         onClick={() => mutate(`/amr/questions/${encodeURIComponent(question.id)}/retained`)}
       >
-        Marcar como retida
+        Mark as retained
       </button>
     </section>
   );
@@ -530,49 +546,56 @@ function Retained({
   const due = (progress.next_review_at || "9999") <= new Date().toISOString().slice(0, 10);
   return (
     <section className="phase">
-      <h3>Retida</h3>
+      <h3>Retained</h3>
       <p className="muted">
-        Retida em {fmt(progress.retained_at)}. Próxima revisão: {fmt(progress.next_review_at)}.
+        Retained on {fmt(progress.retained_at)}. Next review: {fmt(progress.next_review_at)}.
       </p>
       {due ? (
         <div className="actions">
           <button className="warning" onClick={() => mutate(`/amr/questions/${encodeURIComponent(question.id)}/review`, { result: "travei" })}>
-            Travei, voltar para retenção
+            Got stuck, back to retention
           </button>
           <button onClick={() => mutate(`/amr/questions/${encodeURIComponent(question.id)}/review`, { result: "fluiu" })}>
-            Fluiu, reagendar
+            Flowed, reschedule
           </button>
         </div>
       ) : (
         <button className="secondary" onClick={() => mutate(`/amr/questions/${encodeURIComponent(question.id)}/review`, { result: "travei" })}>
-          Treinar retenção agora
+          Practice retention now
         </button>
       )}
       <div className="writtenCard">
-        <span>Referência escrita</span>
+        <span>Written reference</span>
         <p>{progress.written_answer}</p>
       </div>
     </section>
   );
 }
 
-function EvalCard({ attempt }: { attempt: RetentionAttempt }) {
+function EvalCard({ attempt, questionId }: { attempt: RetentionAttempt; questionId: string }) {
   const ev = attempt.ev;
   return (
     <article className="evalCard">
-      <strong>Avaliação · {fmt(attempt.d)}</strong>
+      <strong>Evaluation · {fmt(attempt.d)}</strong>
+      {attempt.has_audio && (
+        <audio
+          controls
+          src={`${API_BASE_URL}/amr/questions/${encodeURIComponent(questionId)}/retention/${attempt.id}/audio`}
+        />
+      )}
+      {Boolean(attempt.transcript) && <p className="muted">“{attempt.transcript}”</p>}
       <p>
-        <b>Substância:</b> {ev.substancia?.nota ?? "- "}/5 · {ev.substancia?.comentario}
+        <b>Substance:</b> {ev.substancia?.nota ?? "- "}/5 · {ev.substancia?.comentario}
       </p>
       <p>
-        <b>Vocabulário:</b> {ev.vocabulario?.comentario}
+        <b>Vocabulary:</b> {ev.vocabulario?.comentario}
       </p>
-      {Boolean(ev.vocabulario?.alcancado?.length) && <p className="muted">Alcançou: {ev.vocabulario?.alcancado?.join(", ")}</p>}
-      {Boolean(ev.vocabulario?.evitado_ou_simplificado?.length) && <p className="muted">Evitou: {ev.vocabulario?.evitado_ou_simplificado?.join(", ")}</p>}
+      {Boolean(ev.vocabulario?.alcancado?.length) && <p className="muted">Reached: {ev.vocabulario?.alcancado?.join(", ")}</p>}
+      {Boolean(ev.vocabulario?.evitado_ou_simplificado?.length) && <p className="muted">Avoided: {ev.vocabulario?.evitado_ou_simplificado?.join(", ")}</p>}
       <p>
-        <b>Hesitação:</b> {ev.hesitacao?.densidade ?? "-"} · {ev.hesitacao?.comentario}
+        <b>Hesitation:</b> {ev.hesitacao?.densidade ?? "-"} · {ev.hesitacao?.comentario}
       </p>
-      <p className="focus">Próxima rep: {ev.foco_proxima_rep}</p>
+      <p className="focus">Next rep: {ev.foco_proxima_rep}</p>
     </article>
   );
 }
@@ -581,25 +604,25 @@ function Progress({ data }: { data: AMRStateResponse }) {
   return (
     <section className="stack">
       <div className="sectionHeader">
-        <h2>Progresso persistido</h2>
-        <span>SQLite em data/amr.sqlite3</span>
+        <h2>Persisted progress</h2>
+        <span>SQLite at data/amr.sqlite3</span>
       </div>
       <div className="statGrid">
         <div className="statCard">
           <strong>{data.stats.written}</strong>
-          <span>respostas escritas</span>
+          <span>written answers</span>
         </div>
         <div className="statCard">
           <strong>{data.stats.reps}</strong>
-          <span>reps de leitura</span>
+          <span>reading reps</span>
         </div>
         <div className="statCard">
           <strong>{data.stats.retention_attempts}</strong>
-          <span>tentativas de retenção</span>
+          <span>retention attempts</span>
         </div>
         <div className="statCard">
           <strong>{data.stats.counts.RETAINED}</strong>
-          <span>retidas</span>
+          <span>retained</span>
         </div>
       </div>
       <div className="panel">
@@ -655,7 +678,11 @@ function getProgress(question: AMRQuestion, progress: Record<string, AMRProgress
 
 function fmt(iso?: string | null) {
   if (!iso) return "-";
-  return new Date(`${iso}T00:00:00`).toLocaleDateString("pt-BR", { day: "2-digit", month: "short" });
+  return new Date(`${iso}T00:00:00`).toLocaleDateString("en-US", { day: "2-digit", month: "short" });
+}
+
+function repLabel(result: "travei" | "fluiu") {
+  return result === "fluiu" ? "flowed" : "got stuck";
 }
 
 function wordCount(value: string) {

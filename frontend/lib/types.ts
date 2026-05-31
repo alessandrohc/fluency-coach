@@ -27,6 +27,7 @@ export type RetentionAttempt = {
   id: number;
   d: string;
   transcript: string;
+  has_audio?: boolean;
   ev: {
     substancia?: {
       nota?: number;

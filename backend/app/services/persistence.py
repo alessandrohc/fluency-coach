@@ -117,6 +117,14 @@ class AMRStore:
                 CREATE INDEX IF NOT EXISTS idx_progress_state_review ON question_progress(state, next_review_at);
                 """
             )
+            self._migrate(conn)
+
+    def _migrate(self, conn: sqlite3.Connection) -> None:
+        columns = {row["name"] for row in conn.execute("PRAGMA table_info(retention_attempts)").fetchall()}
+        if "audio" not in columns:
+            conn.execute("ALTER TABLE retention_attempts ADD COLUMN audio BLOB")
+        if "audio_mime" not in columns:
+            conn.execute("ALTER TABLE retention_attempts ADD COLUMN audio_mime TEXT")
 
     def list_progress(self) -> dict[str, dict[str, Any]]:
         with self._connect() as conn:
@@ -188,15 +196,24 @@ class AMRStore:
         question_id: str,
         transcript: str,
         evaluation: dict[str, Any],
+        audio: bytes | None = None,
+        audio_mime: str | None = None,
     ) -> dict[str, Any]:
         with self._connect() as conn:
             self._ensure_progress(conn, question_id)
             conn.execute(
                 """
-                INSERT INTO retention_attempts (question_id, attempted_at, transcript, evaluation_json)
-                VALUES (?, ?, ?, ?)
+                INSERT INTO retention_attempts (question_id, attempted_at, transcript, evaluation_json, audio, audio_mime)
+                VALUES (?, ?, ?, ?, ?, ?)
                 """,
-                (question_id, self._today(), transcript, json.dumps(evaluation, ensure_ascii=False)),
+                (
+                    question_id,
+                    self._today(),
+                    transcript,
+                    json.dumps(evaluation, ensure_ascii=False),
+                    audio,
+                    audio_mime,
+                ),
             )
             conn.execute(
                 "UPDATE question_progress SET state = 'RETENTION', touched_at = ? WHERE question_id = ?",
@@ -244,6 +261,23 @@ class AMRStore:
                 )
         return self.get_progress(question_id)
 
+    def reset_question(self, question_id: str) -> dict[str, Any]:
+        with self._connect() as conn:
+            conn.execute("DELETE FROM retention_attempts WHERE question_id = ?", (question_id,))
+            conn.execute("DELETE FROM muscle_reps WHERE question_id = ?", (question_id,))
+            conn.execute("DELETE FROM question_progress WHERE question_id = ?", (question_id,))
+        return self.get_progress(question_id)
+
+    def get_retention_audio(self, question_id: str, attempt_id: int) -> tuple[bytes, str] | None:
+        with self._connect() as conn:
+            row = conn.execute(
+                "SELECT audio, audio_mime FROM retention_attempts WHERE id = ? AND question_id = ?",
+                (attempt_id, question_id),
+            ).fetchone()
+        if not row or row["audio"] is None:
+            return None
+        return bytes(row["audio"]), row["audio_mime"] or "audio/webm"
+
     def reset(self) -> None:
         with self._connect() as conn:
             conn.execute("DELETE FROM retention_attempts")
@@ -287,7 +321,7 @@ class AMRStore:
     def _list_retention(self, conn: sqlite3.Connection, question_id: str) -> list[dict[str, Any]]:
         rows = conn.execute(
             """
-            SELECT id, attempted_at, transcript, evaluation_json
+            SELECT id, attempted_at, transcript, evaluation_json, (audio IS NOT NULL) AS has_audio
               FROM retention_attempts
              WHERE question_id = ?
              ORDER BY id ASC
@@ -300,6 +334,7 @@ class AMRStore:
                 "d": row["attempted_at"],
                 "transcript": row["transcript"],
                 "ev": json.loads(row["evaluation_json"] or "{}"),
+                "has_audio": bool(row["has_audio"]),
             }
             for row in rows
         ]
